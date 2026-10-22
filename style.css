@@ -19,3 +19,5 @@
 .execution--logo img{width:min(68%,460px);height:auto;max-height:none}
 .execution--identity img{width:min(100%,900px);height:auto;max-height:none}
 @media(max-width:680px){.execution--landscape video,.execution--landscape img,.execution--hero img,.execution--layers img{width:100%;max-height:none}.execution--logo img{width:min(78%,380px)}.execution--identity img{width:100%}}
+
+.execution--captioned{flex-direction:column;gap:22px}.execution--captioned img{max-height:calc(100svh - var(--header) - 150px)}.execution-caption{font-size:14px;line-height:1.5;color:var(--muted);text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--line)}.execution-caption:hover{color:var(--ink)}
