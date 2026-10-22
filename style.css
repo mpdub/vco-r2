@@ -21,3 +21,5 @@
 @media(max-width:680px){.execution--landscape video,.execution--landscape img,.execution--hero img,.execution--layers img{width:100%;max-height:none}.execution--logo img{width:min(78%,380px)}.execution--identity img{width:100%}}
 
 .execution--captioned{flex-direction:column;gap:22px}.execution--captioned img{max-height:calc(100svh - var(--header) - 150px)}.execution-caption{font-size:14px;line-height:1.5;color:var(--muted);text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--line)}.execution-caption:hover{color:var(--ink)}
+.summary-concept{display:flex;flex-direction:column;min-width:0}.summary-concept .concept-choice{min-height:0;padding-bottom:22px}.summary-slide{display:block}.summary-slide img{display:block;width:100%;height:auto;transition:opacity .2s}.summary-concept:hover .summary-slide img{opacity:.92}.summary-concept:hover .concept-choice{border-color:var(--ink)}.summary-concept:hover .choice-mark{transform:rotate(90deg);color:var(--accent)}
+@media(max-width:680px){.summary-choices{grid-template-columns:1fr;gap:40px}}
