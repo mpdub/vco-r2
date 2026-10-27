@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Private preview</title>
+<style>
+:root{--paper:#f4f1ea;--ink:#191919;--muted:#6b675f;--line:#cfc9bf;color-scheme:light}
+html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+main{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box}
+form{width:100%;max-width:340px;display:flex;flex-direction:column;gap:14px}
+h1{font-size:22px;font-weight:500;margin:0 0 6px}
+label{font-size:13px;color:var(--muted)}
+input[type=password]{font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
+input[type=password]:focus{outline:2px solid var(--ink);outline-offset:1px;border-color:var(--ink)}
+.row{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
+button{font:inherit;padding:12px 14px;border:0;border-radius:6px;background:var(--ink);color:var(--paper);cursor:pointer}
+button:disabled{opacity:.6;cursor:default}
+.msg{min-height:1.5em;font-size:14px;color:#9a3412}
+</style>
+</head>
+<body>
+<main id="gate" hidden>
+<form id="f">
+<h1>This preview is private</h1>
+<label for="pw">Password</label>
+<input id="pw" type="password" autocomplete="current-password" required autofocus>
+<label class="row"><input id="remember" type="checkbox"> Remember on this device</label>
+<button id="go" type="submit">Open</button>
+<div class="msg" id="msg" role="status" aria-live="polite"></div>
+</form>
+</main>
+<script>
+(() => {
+  const SALT = 'H3ywkPxjElboZcNTUb6Uxg==', ITER = 310000, SITE = 'vco-r2', ROOT = '../';
+  const PAYLOAD = '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';
+  const KEYNAME = 'unlock:' + SITE;
+  const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  const b64e = b => btoa(String.fromCharCode(...new Uint8Array(b)));
+  const TYPES = { webp: 'image/webp', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', svg: 'image/svg+xml', mp4: 'video/mp4', webm: 'video/webm', gif: 'image/gif' };
+  const $ = id => document.getElementById(id);
+  const store = { get(k) { try { return sessionStorage.getItem(k) || localStorage.getItem(k); } catch { return null; } },
+                  set(k, v, keep) { try { sessionStorage.setItem(k, v); if (keep) localStorage.setItem(k, v); } catch {} },
+                  clear(k) { try { sessionStorage.removeItem(k); localStorage.removeItem(k); } catch {} } };
+  async function derive(pw) {
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: b64d(SALT), iterations: ITER, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, true, ['decrypt']);
+  }
+  async function decrypt(key, bytes) {
+    return crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes.slice(0, 12) }, key, bytes.slice(12));
+  }
+  async function open(key, msg) {
+    let html = new TextDecoder().decode(await decrypt(key, b64d(PAYLOAD)));
+    const paths = [...new Set([...html.matchAll(/enc:([^"]+)/g)].map(m => m[1]))];
+    let done = 0;
+    const urls = {};
+    await Promise.all(paths.map(async p => {
+      const res = await fetch(ROOT + p + '.enc');
+      const plain = await decrypt(key, new Uint8Array(await res.arrayBuffer()));
+      urls[p] = URL.createObjectURL(new Blob([plain], { type: TYPES[p.split('.').pop().toLowerCase()] || 'application/octet-stream' }));
+      if (msg) msg.textContent = 'Opening… ' + (++done) + ' of ' + paths.length;
+    }));
+    html = html.replace(/enc:([^"]+)/g, (_, p) => urls[p]);
+    document.open(); document.write(html); document.close();
+  }
+  async function fromStore() {
+    const raw = store.get(KEYNAME); if (!raw) return false;
+    try {
+      const key = await crypto.subtle.importKey('raw', b64d(raw), { name: 'AES-GCM' }, true, ['decrypt']);
+      await open(key); return true;
+    } catch { store.clear(KEYNAME); return false; }
+  }
+  fromStore().then(ok => {
+    if (ok) return;
+    $('gate').hidden = false; $('pw').focus();
+    $('f').addEventListener('submit', async e => {
+      e.preventDefault();
+      const msg = $('msg'), btn = $('go');
+      btn.disabled = true; msg.style.color = 'var(--muted)'; msg.textContent = 'Checking…';
+      try {
+        const key = await derive($('pw').value);
+        await decrypt(key, b64d(PAYLOAD));
+        store.set(KEYNAME, b64e(await crypto.subtle.exportKey('raw', key)), $('remember').checked);
+        await open(key, msg);
+      } catch {
+        btn.disabled = false; msg.style.color = ''; msg.textContent = 'That password didn’t work. Check it and try again.';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
